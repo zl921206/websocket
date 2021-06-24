@@ -1,0 +1,20 @@
+spring:
+  # 应用服务名称
+  application:
+    name: WebSocket
+  # 指定需要加载的配置文件
+  profiles:
+    active: dev
+
+# 应用服务端口号
+server:
+  port: 9600
+
+webSocket:
+  protocol: '/ws'
+  port: 9010
+
+sysMsgRecord:
+  yaokangfu.url: http://192.168.0.104:9202/system/webSocket/msgCallback
+  onlinePrescription.url: http://192.168.0.104:8090/webSocket/msgCallback
+  onlineDoctor.url: http://192.168.0.150:9400/server/webSocket/onMessageCallBack
