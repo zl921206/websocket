@@ -19,7 +19,9 @@ import javax.annotation.PostConstruct;
 @EnableRetry // 开启重试机制
 public class WebSocketServer {
 
-    // 定义webSocket端口号
+    /**
+     * 定义webSocket端口号
+     */
     private static int webSocketPort;
     @Value("${webSocket.port}")
     private Integer port;

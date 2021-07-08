@@ -25,18 +25,10 @@ public interface MsgSendService {
 
     /**
      * 消息发送
-     * @param channelList
+     * @param channel
      * @param msgVo
-     * @param isNeedPush
      * @return
      */
-    public ResultDto sendMessage(List<Channel> channelList, MsgVO msgVo, boolean isNeedPush);
+    public ResultDto sendMessage(Channel channel, MsgVO msgVo);
 
-    /**
-     * 消息数据推送对应系统
-     * @param msgData
-     * @param sysType
-     * @return
-     */
-    public void msgDataPushSys(String msgData, Integer sysType);
 }

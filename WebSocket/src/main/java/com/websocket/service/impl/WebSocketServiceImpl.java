@@ -2,14 +2,9 @@ package com.websocket.service.impl;
 
 import com.websocket.handler.WebSocketHandler;
 import com.websocket.service.WebSocketService;
-import com.websocket.utils.StringUtils;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * webSocket服务接口实现类
@@ -19,9 +14,9 @@ import java.util.List;
 public class WebSocketServiceImpl implements WebSocketService {
 
     @Override
-    public void disconnect(Integer sysType, Long userId, Integer userType){
+    public void disconnect(String userId){
         try {
-            deleteUserChannel(WebSocketHandler.sysTypeMap.get(sysType).get(StringUtils.getUserIdentity(userId, userType)));
+            deleteUserChannel(userId);
         } catch (Exception e){
             e.printStackTrace();
             log.error("删除无用的通道缓存对象异常：{}", e.getMessage());
@@ -30,40 +25,26 @@ public class WebSocketServiceImpl implements WebSocketService {
 
     /**
      * 删除无用的通道缓存对象
-     * @param channels
+     * @param userId
      */
     @Override
-    public void deleteUserChannel(List<Channel> channels){
-        if(!CollectionUtils.isEmpty(channels)){
-            // 删除已经无用的通道
-            Iterator<Channel> channelIterator = channels.iterator();
-            while (channelIterator.hasNext()) {
-                // 判断通道是否可写
-                if (!channelIterator.next().isWritable()) {
-                    channelIterator.remove();
-                }
-            }
-        }
+    public void deleteUserChannel(String userId){
+        WebSocketHandler.userChannel.remove(userId);
     }
 
     /**
      * 判断用户是否在线
-     * @param channels true: 不在线，false：在线
+     * @param userId
+     * @param channel  true: 不在线，false：在线
      * @return
      */
     @Override
-    public boolean userIsNotOnline(List<Channel> channels) {
-        // 如果用户通道不存在，则返回 true
-        if (CollectionUtils.isEmpty(channels)) {
-            return true;
+    public boolean userIsNotOnline(String userId, Channel channel) {
+        // 判断用户通道是否可用
+        if (channel.isWritable()) {
+            return false;
         }
-        // 如果用户通道存在，则判断用户通道是否可用
-        for (Channel channel : channels) {
-            if (channel.isWritable()) {
-                return false;
-            }
-        }
-        deleteUserChannel(channels);
+        deleteUserChannel(userId);
         return true;
     }
 }

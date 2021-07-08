@@ -11,22 +11,21 @@ public interface WebSocketService {
 
     /**
      * 断开websocket连接，删除缓存数据
-     * @param sysType
      * @param userId
-     * @param userType
      */
-    void disconnect(Integer sysType, Long userId, Integer userType);
+    void disconnect(String userId);
 
     /**
      * 删除无用的通道缓存对象
-     * @param channels
+     * @param userId
      */
-    void deleteUserChannel(List<Channel> channels);
+    void deleteUserChannel(String userId);
 
     /**
      * 判断用户是否在线
-     * @param channels true: 不在线，false：在线
+     * @param userId
+     * @param channel
      * @return
      */
-    boolean userIsNotOnline(List<Channel> channels);
+    boolean userIsNotOnline(String userId, Channel channel);
 }

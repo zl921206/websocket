@@ -38,7 +38,7 @@ public class MsgSendController {
      */
     @PostMapping("/sendMsgToAll")
     public ResultDto sendMsgToAll(@RequestBody MsgVO msgVo){
-        log.info("发送消息给指定系统指定类型的所有用户，接口请求参数：{}", JSONObject.toJSONString(msgVo));
+        log.info("发送消息给所有用户，接口请求参数：{}", JSONObject.toJSONString(msgVo));
         return msgSendService.sendMsgToAll(msgVo);
     }
 

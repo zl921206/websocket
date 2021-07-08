@@ -8,13 +8,13 @@ spring:
 
 # 应用服务端口号
 server:
-  port: 9600
+  port: 8800
 
 webSocket:
   protocol: '/ws'
-  port: 9010
+  port: 9020
 
-sysMsgRecord:
-  yaokangfu.url: http://192.168.0.104:9202/system/webSocket/msgCallback
-  onlinePrescription.url: http://192.168.0.104:8090/webSocket/msgCallback
-  onlineDoctor.url: http://192.168.0.150:9400/server/webSocket/onMessageCallBack
+# 测试连接地址：ws://127.0.0.1:9020/?userId=10000&msgContent=login
+#   {"fromUserId":"10000","toUserId":"20000","msgContent":"我是第一个用户"}
+#   {"fromUserId":"20000","msgContent":"我是第二个用户","toUserId":"10000"}
+#   {"fromUserId":"30000","msgContent":"我是第三个用户","toUserId":"10000"}
